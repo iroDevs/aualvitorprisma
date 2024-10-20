@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Usuario {
+  id    String     @id @default(uuid())
+  cpf   String    @unique
+  nome  String
+  senha String
+  tipo  String
+  idade Int
+
+  aluno Aluno[]
+  professor Professor[]
+  @@map("usuarios")
+}
+
+model Professor {
+  id         String     @id @default(uuid())
+  usuario_id String
+  materia_id String
+
+  usuario Usuario @relation(fields: [usuario_id], references: [id])
+  materia Materia @relation(fields: [materia_id], references: [id])
+
+  curso Curso[]
+
+  @@map("professores")
+}
+
+model Materia {
+  id   String @id @default(uuid())
+  nome String
+
+  professores Professor[]
+  cursos Curso[]
+
+  @@map("materias")
+}
+
+
+model Curso {
+  id    String @id @default(uuid())
+  nome  String
+  curso String
+
+  professores Professor[]
+  materias Materia[]
+  alunos Aluno[]
+  @@map("cursos")
+}
+
+
+model Aluno {
+  id        String @id @default(uuid())
+  usuario_id String
+  curso_id  String
+
+  usuario Usuario @relation(fields: [usuario_id], references: [id])
+  curso Curso @relation(fields: [curso_id], references: [id])
+
+
+  @@map("alunos")
+}
