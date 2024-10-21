@@ -1,21 +1,40 @@
+import { Prisma } from "@prisma/client"
 import prisma from "../../database/prisma"
 
-
+interface Filtro  {
+    id?: string
+    cpf?: string
+    tipo?: string
+    nome?: string
+}
 
 
 export default class UsuarioRepositories{
-    static async create(data: any){
+    static async create(data: Prisma.UsuarioCreateInput){
         return await prisma.usuario.create({
             data
         })
     }
 
-    static async getAll(){
-        return await prisma.usuario.findMany()
+    static async getAll(filtro : Filtro){
+       const where = Object.fromEntries(
+        Object.entries(filtro).filter(([_, value]) => value !== undefined && value !== null)
+      );
+
+        return await prisma.usuario.findMany({
+            select: {
+                nome: true,
+                cpf: true,
+                tipo: true,
+                id: true
+
+            },
+            where
+        })
     }
 
-    static async getByCpf(cpf: string){
-        return await prisma.usuario.findFirst({
+    static async verifyUserExistByCpf(cpf: string){
+        return await prisma.usuario.count({
             where: {
                 cpf
             }
