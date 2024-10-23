@@ -6,31 +6,33 @@ import { UserAlerdyExist } from "../erro/typesError/user-alerdy-exist";
 
 
 export default class UsuarioService {
-    static async getAll() {
-        const allUsers = await UsuarioRepositories.getAll({});
+    constructor ( private usuarioRepositories: UsuarioRepositories) {}
+
+     async getAll() {
+        const allUsers = await this.usuarioRepositories.getAll({});
         return allUsers;
     }
 
-    static async getOne(id: string) {
+     async getOne(id: string) {
         return "getOne";
     }
 
-    static async create(novoUsuario: Prisma.UsuarioCreateInput) {
+     async create(novoUsuario: Prisma.UsuarioCreateInput) {
         let senha = novoUsuario.senha;
         novoUsuario.senha = await seguranca.hashPassword(senha);
-        const existCpfInDatabase = await UsuarioRepositories.verifyUserExistByCpf(novoUsuario.cpf);
+        const existCpfInDatabase = await this.usuarioRepositories.verifyUserExistByCpf(novoUsuario.cpf);
 
         if (existCpfInDatabase) {
             throw new UserAlerdyExist();
         }
 
-        return await UsuarioRepositories.create(novoUsuario);
+        return await this.usuarioRepositories.create(novoUsuario);
     }
 
-    static async update(id: string, data: Prisma.UsuarioUpdateInput) {
+     async update(id: string, data: Prisma.UsuarioUpdateInput) {
         return "update";
     }
-    static async delete(id: string) {
+     async delete(id: string) {
         return "delete";
     }
 }

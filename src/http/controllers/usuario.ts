@@ -1,12 +1,15 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import UsuarioService from "../../services/usuario";
 import { usuarioSchema } from "../../validate/usuario-schema";
+import UsuarioRepositories from "../repositories/usuario";
+import { UsuarioServicesFactory } from "../../factory/usuario-service-factory";
 
 
 export default class UsuarioController{
 
     static async getAll(request: FastifyRequest, reply: FastifyReply){
-        const allUsers = await UsuarioService.getAll();
+       const usuarioService = UsuarioServicesFactory.create();
+        const allUsers = await usuarioService.getAll();
 
 
         return reply.status(200).send(allUsers);
@@ -18,7 +21,9 @@ export default class UsuarioController{
 
     static async create(request: FastifyRequest, reply: FastifyReply){
         const data = usuarioSchema.parse(request.body);
-        await UsuarioService.create(data);
+        const usuarioService = UsuarioServicesFactory.create();
+
+        await usuarioService.create(data);
         return reply.status(201).send({message: "Usuario criado com sucesso"})
     }
 

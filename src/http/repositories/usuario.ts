@@ -10,13 +10,13 @@ interface Filtro  {
 
 
 export default class UsuarioRepositories{
-    static async create(data: Prisma.UsuarioCreateInput){
+     async create(data: Prisma.UsuarioCreateInput){
         return await prisma.usuario.create({
             data
         })
     }
 
-    static async getAll(filtro : Filtro){
+     async getAll(filtro : Filtro){
        const where = Object.fromEntries(
         Object.entries(filtro).filter(([_, value]) => value !== undefined && value !== null)
       );
@@ -33,7 +33,7 @@ export default class UsuarioRepositories{
         })
     }
 
-    static async verifyUserExistByCpf(cpf: string){
+    async verifyUserExistByCpf(cpf: string){
         return await prisma.usuario.count({
             where: {
                 cpf
@@ -41,7 +41,7 @@ export default class UsuarioRepositories{
         })
     }
 
-    static async getOne(id: string){
+     async getOne(id: string){
         return await prisma.usuario.findUnique({
             where: {
                 id
@@ -49,7 +49,7 @@ export default class UsuarioRepositories{
         })
     }
 
-    static async update(id: string, data: any){
+     async update(id: string, data: any){
         return await prisma.usuario.update({
             where: {
                 id
@@ -58,7 +58,7 @@ export default class UsuarioRepositories{
         })
     }
 
-    static async delete(id: string){
+     async delete(id: string){
         return await prisma.usuario.delete({
             where: {
                 id
