@@ -5,7 +5,9 @@ import { usuarioSchema } from "../validate/usuario-schema"
 import { UserAlerdyExist } from "../erro/typesError/user-alerdy-exist";
 
 
-export default class UsuarioService {
+
+
+export default class UsuarioService  {
     constructor ( private usuarioRepositories: UsuarioRepositories) {}
 
      async getAll() {
@@ -14,7 +16,7 @@ export default class UsuarioService {
     }
 
      async getOne(id: string) {
-        return "getOne";
+        return await this.usuarioRepositories.getOne(id);
     }
 
      async create(novoUsuario: Prisma.UsuarioCreateInput) {
@@ -30,9 +32,18 @@ export default class UsuarioService {
     }
 
      async update(id: string, data: Prisma.UsuarioUpdateInput) {
-        return "update";
+        return await this.usuarioRepositories.update(id, data);
     }
      async delete(id: string) {
-        return "delete";
+        return await this.usuarioRepositories.delete(id);
     }
 }
+
+
+// testes
+
+// ponta a ponta E2E
+
+// integraçao
+
+// unitarios

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest",
     "dev": "tsx watch ./src/server.ts",
     "node:dev": "node ./dist/server.js"
   },
@@ -14,10 +14,12 @@
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/node": "^22.7.5",
+    "@vitest/ui": "^2.1.3",
     "prisma": "^5.21.1",
     "tsup": "^8.3.0",
     "tsx": "^4.19.1",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "vitest": "^2.1.3"
   },
   "dependencies": {
     "@prisma/client": "^5.21.1",
