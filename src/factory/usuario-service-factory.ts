@@ -1,5 +1,5 @@
 import UsuarioRepositories from "../http/repositories/usuario";
-import UsuarioService from "../services/usuario";
+import UsuarioService from "../services/usuario-service";
 
 export class UsuarioServicesFactory {
     static create() {

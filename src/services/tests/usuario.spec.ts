@@ -1,7 +1,7 @@
-import { InMemoryDBUsuario } from "../InMemoryDb/usuario";
-import { hash } from 'bcryptjs'
+import { InMemoryDBUsuario } from "../../database/InMemoryDb/usuario-in-memory";
+import { compare, hash } from 'bcrypt'
 import { expect, describe, it, beforeEach } from 'vitest'
-import UsuarioService from "../usuario";
+import UsuarioService from "../usuario-service";
 import { UserAlerdyExist } from "../../erro/typesError/user-alerdy-exist";
 
 
@@ -116,6 +116,22 @@ describe('Serviço de Usuario', () => {
         } catch (error) {
             expect(true).toEqual(error instanceof UserAlerdyExist)
         }
+    })
+
+    it('Deve ser possivel criar um usuario com senha criptografada', async () => {
+        const senha = '123456'
+        const hashedSenha = await hash(senha, 6)
+        await sut.create({
+            nome: 'any_nome',
+            cpf: 'any_cpf',
+            tipo: 'any_tipo',
+            senha: senha,
+            idade: 20
+        })
+        const users = await sut.getAll()
+        const isPasswordMatch = await compare(senha, `${users[0].senha}`)
+        expect(isPasswordMatch).toBe(true)
+
     })
 
 

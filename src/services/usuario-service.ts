@@ -3,6 +3,7 @@ import seguranca from "../helpers/seguranca";
 import UsuarioRepositories from "../http/repositories/usuario";
 import { usuarioSchema } from "../validate/usuario-schema"
 import { UserAlerdyExist } from "../erro/typesError/user-alerdy-exist";
+import { ResourceNotFound } from "../erro/typesError/resouce-not-found";
 
 
 
@@ -16,7 +17,13 @@ export default class UsuarioService  {
     }
 
      async getOne(id: string) {
-        return await this.usuarioRepositories.getOne(id);
+        const user = await this.usuarioRepositories.getOne(id);
+
+        if (user === null) {
+            throw new ResourceNotFound();
+        }
+
+        return user;
     }
 
      async create(novoUsuario: Prisma.UsuarioCreateInput) {
@@ -32,18 +39,15 @@ export default class UsuarioService  {
     }
 
      async update(id: string, data: Prisma.UsuarioUpdateInput) {
+        const user = await this.usuarioRepositories.getOne(id);
+
+        if (user === null) {
+            throw new ResourceNotFound();
+        }
+
         return await this.usuarioRepositories.update(id, data);
     }
      async delete(id: string) {
         return await this.usuarioRepositories.delete(id);
     }
 }
-
-
-// testes
-
-// ponta a ponta E2E
-
-// integraçao
-
-// unitarios

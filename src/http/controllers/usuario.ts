@@ -1,5 +1,5 @@
 import { FastifyReply, FastifyRequest } from "fastify";
-import UsuarioService from "../../services/usuario";
+import UsuarioService from "../../services/usuario-service";
 import { usuarioSchema } from "../../validate/usuario-schema";
 import UsuarioRepositories from "../repositories/usuario";
 import { UsuarioServicesFactory } from "../../factory/usuario-service-factory";
