@@ -5,7 +5,9 @@ let usuarioSchema = z.object({
     cpf: z.string(),
     senha: z.string(),
     tipo: z.string(),
-    idade: z.coerce.number()
+    idade: z.coerce.number(),
+    professor: z.any().nullable(),
+    aluno: z.any().nullable()
 })
 
 export  { usuarioSchema }
