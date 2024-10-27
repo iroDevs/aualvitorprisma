@@ -1,7 +1,7 @@
 import { Prisma, Usuario } from "@prisma/client"
 import prisma from "../../database/prisma"
 import { IusuarioRepositories } from "./interface/IusuarioRepositories"
-import IFiltro from "./interface/IFiltro";
+import IFiltro from "./interface/IFiltroUsuario";
 
 
 

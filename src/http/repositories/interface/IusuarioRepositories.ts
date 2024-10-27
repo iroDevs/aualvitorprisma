@@ -1,5 +1,5 @@
 import { Prisma, Usuario } from "@prisma/client";
-import IFiltro from "./IFiltro";
+import IFiltro from "./IFiltroUsuario";
 
 export interface IusuarioRepositories {
     create(data: Prisma.UsuarioCreateInput): Promise<Prisma.UsuarioCreateInput>;

@@ -1,5 +1,5 @@
 import { Prisma, Usuario } from "@prisma/client";
-import IFiltro from "../../http/repositories/interface/IFiltro";
+import IFiltro from "../../http/repositories/interface/IFiltroUsuario";
 import { IusuarioRepositories } from "../../http/repositories/interface/IusuarioRepositories";
 
 export class InMemoryDBUsuario implements IusuarioRepositories {
